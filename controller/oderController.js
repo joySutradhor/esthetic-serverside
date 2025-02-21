@@ -1,45 +1,58 @@
 import orderModel from '../model/orderModel.js'
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
 
-
-
-dotenv.config();
+dotenv.config()
 
 // Configure Nodemailer
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: "joysutradhorcmt@gmail.com",
-    pass: "fysegybjglucpyit",
-  },
-});
+    user: 'joysutradhorcmt@gmail.com',
+    pass: 'fysegybjglucpyit'
+  }
+})
+
+// Format the selected services into a list
+const servicesList = orderDetails.selectedServices?.length
+  ? `<ul>${orderDetails.selectedServices
+      .map(service => `<li>${service}</li>`)
+      .join('')}</ul>`
+  : '<p>No services selected</p>'
 
 // Function to send email
-const sendBookingEmail = async (orderDetails) => {
+const sendBookingEmail = async orderDetails => {
+  console.log(orderDetails)
   const mailOptions = {
     from: "Esthetic",
-    to: "clientcredentialsmain@gmail.com", // Admin email address
+    to: 'clientcredentialsmain@gmail.com', // Admin email address
     subject: 'New Order Received',
     html: `
       <h2>New Order Details</h2>
-      
-    `,
-  };
+      <p><strong>Name:</strong> ${orderDetails.customerName}</p>
+      <p><strong>Phone:</strong> ${orderDetails.phone}</p>
+      <p><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
+      <p><strong>Subtotal:</strong> $${orderDetails.subtotal.toFixed(2)}</p>
+      <p><strong>Selected Services:</strong></p>
+      ${servicesList}
+      <p><strong>Created At:</strong> ${new Date(
+        orderDetails.createdAt
+      ).toLocaleString()}</p>
+    `
+  }
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log('Booking email sent to admin.');
+    await transporter.sendMail(mailOptions)
+    console.log('Booking email sent to admin.')
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending email:', error)
   }
-};
-
+}
 
 export const getOrders = async (req, res) => {
   try {
     const getAllOrders = await orderModel
-      .find({ status: "pending" })
+      .find({ status: 'pending' })
       .sort({ createdAt: -1 })
     if (getAllOrders.length === 0) {
       return res.status(404).json({ message: 'user not found' })
@@ -54,7 +67,7 @@ export const getOrders = async (req, res) => {
 export const getAcceptedOrder = async (req, res) => {
   try {
     const getAllAcceptOrders = await orderModel
-      .find({ status: "accepted" })
+      .find({ status: 'accepted' })
       .sort({ createdAt: -1 })
     if (getAllAcceptOrders.length === 0) {
       return res.status(404).json({ message: 'user not found' })
@@ -87,8 +100,8 @@ export const create = async (req, res) => {
   try {
     const orderData = new orderModel(req.body)
 
-    const saveOrder = await orderData.save();
-    await sendBookingEmail(saveOrder);
+    const saveOrder = await orderData.save()
+    await sendBookingEmail(saveOrder)
 
     res.status(200).json(saveOrder)
   } catch (error) {
