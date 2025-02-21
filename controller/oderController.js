@@ -1,11 +1,7 @@
 import orderModel from '../model/orderModel.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
-import cors from "cors";
 
-const app = express();
-// Enable CORS
-app.use(cors());
 dotenv.config()
 // Configure Nodemailer
 const transporter = nodemailer.createTransport({
@@ -32,9 +28,7 @@ const sendBookingEmail = async orderDetails => {
     subject: 'New Order Received',
     html: `
       <h2>New Order Details</h2>
-      <p><strong>Name:</strong> ${orderDetails.customerName}</p>
-      <p><strong>Phone:</strong> ${orderDetails.phone}</p>
-      <p><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
+      
      
     `
   }
