@@ -26,8 +26,8 @@ const servicesList = orderDetails.selectedServices?.length
 const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
   const mailOptions = {
-    from: "Esthetic",
-    to: 'clientcredentialsmain@gmail.com', // Admin email address
+    from: 'joysutradhorcmt@gmail.com',
+    to: 'clientcredentialsmain@gmail.com', 
     subject: 'New Order Received',
     html: `
       <h2>New Order Details</h2>
@@ -37,9 +37,6 @@ const sendBookingEmail = async orderDetails => {
       <p><strong>Subtotal:</strong> $${orderDetails.subtotal.toFixed(2)}</p>
       <p><strong>Selected Services:</strong></p>
       ${servicesList}
-      <p><strong>Created At:</strong> ${new Date(
-        orderDetails.createdAt
-      ).toLocaleString()}</p>
     `
   }
 
