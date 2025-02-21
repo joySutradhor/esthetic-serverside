@@ -1,4 +1,40 @@
 import orderModel from '../model/orderModel.js'
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+
+
+dotenv.config();
+
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: "joysutradhorcmt@gmail.com",
+    pass: "fysegybjglucpyit",
+  },
+});
+
+// Function to send email
+const sendBookingEmail = async (orderDetails) => {
+  const mailOptions = {
+    from: "joysutradhorcmt@gmail.com",
+    to: "clientcredentialsmain@gmail.com", // Admin email address
+    subject: 'New Order Received',
+    html: `
+      <h2>New Order Details</h2>
+      
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Booking email sent to admin.');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+};
+
 
 export const getOrders = async (req, res) => {
   try {
@@ -51,7 +87,9 @@ export const create = async (req, res) => {
   try {
     const orderData = new orderModel(req.body)
 
-    const saveOrder = await orderData.save()
+    const saveOrder = await orderData.save();
+    await sendBookingEmail(saveOrder);
+
     res.status(200).json(saveOrder)
   } catch (error) {
     res.status(500).json({ error: 'Internal server error .' })
