@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 import cors from "cors";
 
+const app = express();
 // Enable CORS
 app.use(cors());
 dotenv.config()
