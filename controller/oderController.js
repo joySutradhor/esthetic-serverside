@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 // Function to send email
 const sendBookingEmail = async (orderDetails) => {
   const mailOptions = {
-    from: "joysutradhorcmt@gmail.com",
+    from: "Esthetic",
     to: "clientcredentialsmain@gmail.com", // Admin email address
     subject: 'New Order Received',
     html: `
