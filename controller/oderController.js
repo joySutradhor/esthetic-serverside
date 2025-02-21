@@ -24,7 +24,7 @@ const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
   const mailOptions = {
     from: 'joysutradhorcmt@gmail.com',
-    to: 'clientcredentialsmain@gmail.com',
+    to: 'dcaff813@gmail.com',
     subject: 'New Order Received',
     html: `
       <h2>New Order Details</h2>
