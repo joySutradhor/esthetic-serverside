@@ -31,29 +31,29 @@ const sendBookingEmail = async orderDetails => {
     subject: 'New Order Received',
     html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-      <div style="background: #007bff; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+      <div style="background: #4B5563; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
         New Order Details
       </div>
-      <div style="padding: 10px;">
-        <p style="font-size: 16px;"><strong>Name:</strong> ${
+      <div>
+        <p style="font-size: 14px;"><strong>Name:</strong> ${
           orderDetails.customerName
         }</p>
-        <p style="font-size: 16px;"><strong>Phone:</strong> ${
+        <p style="font-size: 14px;"><strong>Phone:</strong> ${
           orderDetails.phone
         }</p>
-        <p style="font-size: 16px;"><strong>Email:</strong> ${
+        <p style="font-size: 14px;"><strong>Email:</strong> ${
           orderDetails.email || 'N/A'
         }</p>
-        <p style="font-size: 16px;"><strong>Appointment Time:</strong> ${
+        <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
           orderDetails.time || 'N/A'
         }</p>
-        <p style="font-size: 16px;"><strong>Appointment Date:</strong> ${
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${
           orderDetails.date || 'N/A'
         }</p>
-        <p style="font-size: 16px; font-weight: bold;">Selected Services:</p>
+        <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
-          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #007bff; color: white; padding: 20px 15px; text-decoration: none; border-radius: 5px; font-size: 16px;">See Appointment</a>
+          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #4B5563; color: white; padding: 10px 15px; margin-top: 20px;margin-bottom: 20px; text-decoration: none; border-radius: 5px; font-size: 14px;">See Appointment</a>
         </p>
       </div>
       <div style="background: #f4f4f4; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
