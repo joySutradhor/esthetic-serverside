@@ -18,27 +18,49 @@ const sendBookingEmail = async orderDetails => {
 
   // Format the selected services into a list
   const servicesList = orderDetails.selectedServices?.length
-    ? `<ul>${orderDetails.selectedServices
-        .map(service => `<li>${service?.serviceName}</li>`)
-        .join('')}</ul>`
-    : '<p>No services selected</p>'
+    ? `<ul style="padding-left: 20px; color: #555;">
+    ${orderDetails.selectedServices
+      .map(service => `<li>${service}</li>`)
+      .join('')}
+  </ul>`
+    : "<p style='color: red;'>No services selected</p>"
 
   const mailOptions = {
     from: 'Noemidlrosario@hotmail.com',
     to: 'joysutradhorcmt@gmail.com',
     subject: 'New Order Received',
     html: `
-      <h2>New Order Details</h2>
-      <p><strong>Name:</strong> ${orderDetails.customerName}</p>
-      <p><strong>Phone:</strong> ${orderDetails.phone}</p>
-      <p><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
-      <p><strong>Appointment Time:</strong> ${orderDetails.time || 'N/A'}</p>
-      <p><strong>Appointment Date:</strong> ${orderDetails.date || 'N/A'}</p>
-      <p><strong>Seleted Services:</strong> </p>
-      ${servicesList}
-      <p><strong>View Dashboard:</strong> <a href="https://estheticsbynoemi.com/adminDashboard" target="_blank">Click Here</a></p>
-     
-    `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+      <div style="background: #007bff; color: white; padding: 15px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+        New Order Details
+      </div>
+      <div style="padding: 20px;">
+        <p style="font-size: 16px;"><strong>Name:</strong> ${
+          orderDetails.customerName
+        }</p>
+        <p style="font-size: 16px;"><strong>Phone:</strong> ${
+          orderDetails.phone
+        }</p>
+        <p style="font-size: 16px;"><strong>Email:</strong> ${
+          orderDetails.email || 'N/A'
+        }</p>
+        <p style="font-size: 16px;"><strong>Appointment Time:</strong> ${
+          orderDetails.time || 'N/A'
+        }</p>
+        <p style="font-size: 16px;"><strong>Appointment Date:</strong> ${
+          orderDetails.date || 'N/A'
+        }</p>
+        <p style="font-size: 16px; font-weight: bold;">Selected Services:</p>
+        ${servicesList}
+        <p style="margin-top: 20px;">
+          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-size: 16px;">View Dashboard</a>
+        </p>
+      </div>
+      <div style="background: #f4f4f4; padding: 10px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+        &copy; 2025 Esthetics by Noemi. All Rights Reserved.
+      </div>
+    </div>
+  `
   }
 
   try {
