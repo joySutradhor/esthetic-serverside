@@ -23,14 +23,16 @@ const transporter = nodemailer.createTransport({
 const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
   const mailOptions = {
-    from: 'joysutradhorcmt@gmail.com',
-    to: 'dcaff813@gmail.com',
+    from: 'Noemidlrosario@hotmail.com',
+    to: 'joysutradhorcmt@gmail.com',
     subject: 'New Order Received',
     html: `
       <h2>New Order Details</h2>
       <p><strong>Name:</strong> ${orderDetails.customerName}</p>
       <p><strong>Phone:</strong> ${orderDetails.phone}</p>
       <p><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
+      <p><strong>Email:</strong> ${orderDetails.time || 'N/A'}</p>
+      <p><strong>Email:</strong> ${orderDetails.date || 'N/A'}</p>
      
     `
   }
