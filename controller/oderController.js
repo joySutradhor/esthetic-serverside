@@ -12,16 +12,17 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-// Format the selected services into a list
-const servicesList = orderDetails.selectedServices?.length
-  ? `<ul>${orderDetails.selectedServices
-      .map(service => `<li>${service}</li>`)
-      .join('')}</ul>`
-  : '<p>No services selected</p>'
-
 // Function to send email
 const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
+
+  // Format the selected services into a list
+  const servicesList = orderDetails.selectedServices?.length
+    ? `<ul>${orderDetails.selectedServices
+        .map(service => `<li>${service}</li>`)
+        .join('')}</ul>`
+    : '<p>No services selected</p>'
+
   const mailOptions = {
     from: 'Noemidlrosario@hotmail.com',
     to: 'joysutradhorcmt@gmail.com',
