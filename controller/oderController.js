@@ -36,6 +36,7 @@ const sendBookingEmail = async orderDetails => {
       <p><strong>Appointment Date:</strong> ${orderDetails.date || 'N/A'}</p>
       <p><strong>Seleted Services:</strong> </p>
       ${servicesList}
+      <p><strong>View Dashboard:</strong> <a href="https://estheticsbynoemi.com/adminDashboard" target="_blank">Click Here</a></p>
      
     `
   }
