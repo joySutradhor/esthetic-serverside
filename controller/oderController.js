@@ -20,7 +20,7 @@ const sendBookingEmail = async orderDetails => {
   const servicesList = orderDetails.selectedServices?.length
     ? `<ul style="padding-left: 20px; color: #555;">
     ${orderDetails.selectedServices
-      .map(service => `<li>${service}</li>`)
+      .map(service => `<li>${service?.serviceName}</li>`)
       .join('')}
   </ul>`
     : "<p style='color: red;'>No services selected</p>"
@@ -30,11 +30,11 @@ const sendBookingEmail = async orderDetails => {
     to: 'joysutradhorcmt@gmail.com',
     subject: 'New Order Received',
     html: `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-      <div style="background: #007bff; color: white; padding: 15px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+      <div style="background: #007bff; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
         New Order Details
       </div>
-      <div style="padding: 20px;">
+      <div style="padding: 10px;">
         <p style="font-size: 16px;"><strong>Name:</strong> ${
           orderDetails.customerName
         }</p>
@@ -53,10 +53,10 @@ const sendBookingEmail = async orderDetails => {
         <p style="font-size: 16px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
-          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-size: 16px;">View Dashboard</a>
+          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #007bff; color: white; padding: 20px 15px; text-decoration: none; border-radius: 5px; font-size: 16px;">See Appointment</a>
         </p>
       </div>
-      <div style="background: #f4f4f4; padding: 10px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+      <div style="background: #f4f4f4; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
         &copy; 2025 Esthetics by Noemi. All Rights Reserved.
       </div>
     </div>
