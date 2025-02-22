@@ -56,7 +56,7 @@ const sendBookingEmail = async orderDetails => {
           <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #4B5563; color: white; padding: 10px 15px; margin-top: 20px;margin-bottom: 20px; text-decoration: none; border-radius: 5px; font-size: 14px;">See Appointment</a>
         </p>
       </div>
-      <div style="background: #f4f4f4; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+      <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
         &copy; 2025 Esthetics by Noemi. All Rights Reserved.
       </div>
     </div>
