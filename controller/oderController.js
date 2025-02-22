@@ -13,11 +13,11 @@ const transporter = nodemailer.createTransport({
 })
 
 // Format the selected services into a list
-// const servicesList = orderDetails.selectedServices?.length
-//   ? `<ul>${orderDetails.selectedServices
-//       .map(service => `<li>${service}</li>`)
-//       .join('')}</ul>`
-//   : '<p>No services selected</p>'
+const servicesList = orderDetails.selectedServices?.length
+  ? `<ul>${orderDetails.selectedServices
+      .map(service => `<li>${service}</li>`)
+      .join('')}</ul>`
+  : '<p>No services selected</p>'
 
 // Function to send email
 const sendBookingEmail = async orderDetails => {
@@ -33,6 +33,7 @@ const sendBookingEmail = async orderDetails => {
       <p><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
       <p><strong>Email:</strong> ${orderDetails.time || 'N/A'}</p>
       <p><strong>Email:</strong> ${orderDetails.date || 'N/A'}</p>
+      ${servicesList}
      
     `
   }
