@@ -12,11 +12,11 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-// // Function to send email
+// Function to send email
 const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
 
-  // Format the selected services into the list 
+  // Format the selected services into a list
   const servicesList = orderDetails.selectedServices?.length
     ? `<ul style="padding-left: 20px; color: #555;">
     ${orderDetails.selectedServices
@@ -27,7 +27,7 @@ const sendBookingEmail = async orderDetails => {
 
   const mailOptions = {
     from: 'Noemidlrosario@hotmail.com',
-    to: 'joysutradhorcmt@gmail.com',
+    to: 'appts@estheticsbynoemi.com',
     subject: 'New Order Received',
     html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
