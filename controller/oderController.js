@@ -4,72 +4,72 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 // Configure Nodemailer
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'joysutradhorcmt@gmail.com',
-//     pass: 'fysegybjglucpyit'
-//   }
-// })
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'joysutradhorcmt@gmail.com',
+    pass: 'fysegybjglucpyit'
+  }
+})
 
 // // Function to send email
-// const sendBookingEmail = async orderDetails => {
-//   console.log(orderDetails)
+const sendBookingEmail = async orderDetails => {
+  console.log(orderDetails)
 
-//   // Format the selected services into the list 
-//   const servicesList = orderDetails.selectedServices?.length
-//     ? `<ul style="padding-left: 20px; color: #555;">
-//     ${orderDetails.selectedServices
-//       .map(service => `<li>${service?.serviceName}</li>`)
-//       .join('')}
-//   </ul>`
-//     : "<p style='color: red;'>No services selected</p>"
+  // Format the selected services into the list 
+  const servicesList = orderDetails.selectedServices?.length
+    ? `<ul style="padding-left: 20px; color: #555;">
+    ${orderDetails.selectedServices
+      .map(service => `<li>${service?.serviceName}</li>`)
+      .join('')}
+  </ul>`
+    : "<p style='color: red;'>No services selected</p>"
 
-//   const mailOptions = {
-//     from: 'Noemidlrosario@hotmail.com',
-//     to: "info.resolve.idea@gmail.com",
-//     subject: 'New Order Received',
-//     html: `
-//     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-//       <div style="background: #4B5563; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
-//         New Order Details
-//       </div>
-//       <div>
-//         <p style="font-size: 14px;"><strong>Name:</strong> ${
-//           orderDetails.customerName
-//         }</p>
-//         <p style="font-size: 14px;"><strong>Phone:</strong> ${
-//           orderDetails.phone
-//         }</p>
-//         <p style="font-size: 14px;"><strong>Email:</strong> ${
-//           orderDetails.email || 'N/A'
-//         }</p>
-//         <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
-//           orderDetails.time || 'N/A'
-//         }</p>
-//         <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${
-//           orderDetails.date || 'N/A'
-//         }</p>
-//         <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
-//         ${servicesList}
-//         <p style="margin-top: 20px;">
-//           <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #4B5563; color: white; padding: 10px 15px; margin-top: 20px;margin-bottom: 20px; text-decoration: none; border-radius: 5px; font-size: 14px;">See Appointment</a>
-//         </p>
-//       </div>
-//       <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
-//         &copy; 2025 Esthetics by Noemi. All Rights Reserved.
-//       </div>
-//     </div>
-//   `
-//   }
+  const mailOptions = {
+    from: 'Noemidlrosario@hotmail.com',
+    to: "info.resolve.idea@gmail.com",
+    subject: 'New Order Received',
+    html: `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+      <div style="background: #4B5563; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+        New Order Details
+      </div>
+      <div>
+        <p style="font-size: 14px;"><strong>Name:</strong> ${
+          orderDetails.customerName
+        }</p>
+        <p style="font-size: 14px;"><strong>Phone:</strong> ${
+          orderDetails.phone
+        }</p>
+        <p style="font-size: 14px;"><strong>Email:</strong> ${
+          orderDetails.email || 'N/A'
+        }</p>
+        <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
+          orderDetails.time || 'N/A'
+        }</p>
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${
+          orderDetails.date || 'N/A'
+        }</p>
+        <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
+        ${servicesList}
+        <p style="margin-top: 20px;">
+          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #4B5563; color: white; padding: 10px 15px; margin-top: 20px;margin-bottom: 20px; text-decoration: none; border-radius: 5px; font-size: 14px;">See Appointment</a>
+        </p>
+      </div>
+      <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+        &copy; 2025 Esthetics by Noemi. All Rights Reserved.
+      </div>
+    </div>
+  `
+  }
 
-//   try {
-//     await transporter.sendMail(mailOptions)
-//     console.log('Booking email sent to admin.')
-//   } catch (error) {
-//     console.error('Error sending email:', error)
-//   }
-// }
+  try {
+    await transporter.sendMail(mailOptions)
+    console.log('Booking email sent to admin.')
+  } catch (error) {
+    console.error('Error sending email:', error)
+  }
+}
 
 export const getOrders = async (req, res) => {
   try {
@@ -123,7 +123,7 @@ export const create = async (req, res) => {
     const orderData = new orderModel(req.body)
 
     const saveOrder = await orderData.save()
-    // await sendBookingEmail(saveOrder)
+    await sendBookingEmail(saveOrder)
 
     res.status(200).json(saveOrder)
   } catch (error) {
