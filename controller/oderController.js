@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
 
-  // Format the selected services into a list
+  // Format the selected services into the list 
   const servicesList = orderDetails.selectedServices?.length
     ? `<ul style="padding-left: 20px; color: #555;">
     ${orderDetails.selectedServices
