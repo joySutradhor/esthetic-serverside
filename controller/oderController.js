@@ -27,7 +27,7 @@ const sendBookingEmail = async orderDetails => {
 
   const mailOptions = {
     from: 'Noemidlrosario@hotmail.com',
-    to: 'appts@estheticsbynoemi.com',
+    to: 'info.resolve.idea@gmail.com',
     subject: 'New Order Received',
     html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
