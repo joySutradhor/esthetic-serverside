@@ -108,6 +108,8 @@ const sendBookingEmail = async orderDetails => {
   }
 }
 
+// get all orders details
+
 export const getOrders = async (req, res) => {
   try {
     const getAllOrders = await orderModel
@@ -155,6 +157,9 @@ export const multipleOrders = async (req, res) => {
   }
 }
 
+
+// create new order 
+
 export const create = async (req, res) => {
   try {
     const orderData = new orderModel(req.body)
@@ -168,6 +173,8 @@ export const create = async (req, res) => {
   }
 }
 
+
+// update order
 export const updateOrder = async (req, res) => {
   try {
     const { id } = req.params
@@ -192,6 +199,8 @@ export const updateOrder = async (req, res) => {
   }
 }
 
+
+// delete order
 export const deleteOrder = async (req, res) => {
   try {
     const id = req.params.id
