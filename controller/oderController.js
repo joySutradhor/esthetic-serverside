@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-// Function to send email
+// Function to send email new command
 const sendBookingEmail = async orderDetails => {
   console.log(orderDetails)
 
