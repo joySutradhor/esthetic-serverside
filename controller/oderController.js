@@ -63,7 +63,7 @@ const sendBookingEmail = async orderDetails => {
   // Admin Email Options
   const adminMailOptions = {
     from: 'Noemidlrosario@hotmail.com',
-    to: 'clientcredentialsmain@gmail.com',
+    to: 'resolved.idea@gmail.com',
     subject: 'New Order Received',
     html: emailHtml
   }
