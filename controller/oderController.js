@@ -87,7 +87,7 @@ const sendBookingEmail = async orderDetails => {
             <div>
               <p style="font-size: 14px;">Dear ${orderDetails.customerName},</p>
               <p style="font-size: 14px;">Thank you for booking with us! Here are your appointment details:</p>
-              <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${orderDetails.date.toISOString().split('T')[0]}</p>
+              <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
               <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${orderDetails.time}</p>
               <p style="font-size: 14px;"><strong>Services:</strong></p>
               ${servicesList}
