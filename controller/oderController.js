@@ -45,9 +45,9 @@ const sendBookingEmail = async orderDetails => {
         <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
           orderDetails.time || 'N/A'
         }</p>
-        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${
-          orderDetails.date || 'N/A'
-        }</p>
+ <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(
+   orderDetails.date
+ ).toLocaleDateString('en-US')}</p>
         <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
@@ -87,8 +87,12 @@ const sendBookingEmail = async orderDetails => {
             <div>
               <p style="font-size: 14px;">Dear ${orderDetails.customerName},</p>
               <p style="font-size: 14px;">Thank you for booking with us! Here are your appointment details:</p>
-              <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
-              <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${orderDetails.time}</p>
+              <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(
+                orderDetails.date
+              ).toLocaleDateString('en-US')}</p>
+              <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
+                orderDetails.time
+              }</p>
               <p style="font-size: 14px;"><strong>Services:</strong></p>
               ${servicesList}
               <p style="margin-top: 20px;">We look forward to seeing you!</p>
