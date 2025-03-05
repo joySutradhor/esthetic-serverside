@@ -8,8 +8,8 @@ dotenv.config()
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'joysutradhorcmt@gmail.com',
-    pass: 'fysegybjglucpyit'
+    user: 'resolved.idea@gmail.com',
+    pass: 'asihdtpjxvkguxfg'
   }
 })
 
@@ -63,7 +63,7 @@ const sendBookingEmail = async orderDetails => {
   // Admin Email Options
   const adminMailOptions = {
     from: 'Noemidlrosario@hotmail.com',
-    to: 'info.estheticsbynoemi@gmail.com',
+    to: 'info.resolve.idea@gmail.com',
     subject: 'New Order Received',
     html: emailHtml
   }
@@ -76,7 +76,7 @@ const sendBookingEmail = async orderDetails => {
     // Send email to customer if email is provided
     if (orderDetails.email) {
       const customerMailOptions = {
-        from: 'Noemidlrosario@hotmail.com',
+        from: 'info.resolve.idea@gmail.com',
         to: orderDetails.email,
         subject: 'Booking Confirmation - Esthetics by Noemi',
         html: `
