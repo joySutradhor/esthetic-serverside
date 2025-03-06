@@ -157,7 +157,7 @@ const sendAcceptedEmail = async updatedOrder => {
     </div>
   `
 
-  // Admin Email Options
+  // accepted Email Options
   const customerEmailOptions = {
     from: 'estheticsbynoemi@gmail.com',
     to: updatedOrder.email,
@@ -257,8 +257,8 @@ export const updateOrder = async (req, res) => {
       { new: true } // Returns the updated document
     )
 
-    res.status(200).json(updatedOrder)
     await sendAcceptedEmail(updatedOrder)
+    res.status(200).json(updatedOrder)
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' })
   }
