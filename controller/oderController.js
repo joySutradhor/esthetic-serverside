@@ -129,7 +129,7 @@ const sendAcceptedEmail = async updatedOrder => {
   const emailHtml = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
       <div style="background: #008000; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
-        New Order Details
+        Now Your Order Is Accepted 
       </div>
       <div>
         <p style="font-size: 14px;"><strong>Name:</strong> ${
