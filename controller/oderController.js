@@ -45,9 +45,7 @@ const sendBookingEmail = async orderDetails => {
         <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
           orderDetails.time || 'N/A'
         }</p>
- <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(
-   orderDetails.date
- ).toLocaleDateString('en-US')}</p>
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
         <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
@@ -76,7 +74,7 @@ const sendBookingEmail = async orderDetails => {
     // Send email to customer if email is provided
     if (orderDetails.email) {
       const customerMailOptions = {
-        from: 'info.resolve.idea@gmail.com',
+        from: 'estheticsbynoemi@gmail.com',
         to: orderDetails.email,
         subject: 'Booking Confirmation - Esthetics by Noemi',
         html: `
@@ -111,6 +109,74 @@ const sendBookingEmail = async orderDetails => {
     console.error('Error sending email:', error)
   }
 }
+
+
+
+// Function to send orderAccecpted
+const sendAcceptedEmail = async updatedOrder => {
+  console.log(updatedOrder)
+
+  // Format the selected services into a list to send email
+  const servicesList = updatedOrder.selectedServices?.length
+    ? `<ul style="padding-left: 20px; color: #555;">
+        ${updatedOrder.selectedServices
+          .map(service => `<li>${service?.serviceName}</li>`)
+          .join('')}
+      </ul>`
+    : "<p style='color: red;'>No services selected</p>"
+
+  // Email content
+  const emailHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+      <div style="background: #008000; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+        New Order Details
+      </div>
+      <div>
+        <p style="font-size: 14px;"><strong>Name:</strong> ${
+          updatedOrder.customerName
+        }</p>
+        <p style="font-size: 14px;"><strong>Phone:</strong> ${
+          updatedOrder.phone
+        }</p>
+        <p style="font-size: 14px;"><strong>Email:</strong> ${
+          updatedOrder.email || 'N/A'
+        }</p>
+        <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
+          updatedOrder.time || 'N/A'
+        }</p>
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(updatedOrder.date).toLocaleDateString('en-US')}</p>
+        <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
+        ${servicesList}
+        <p style="margin-top: 20px;">
+          <a href="https://estheticsbynoemi.com/dashboard" style="background-color: #4B5563; color: white; padding: 10px 15px; margin-top: 20px;margin-bottom: 20px; text-decoration: none; border-radius: 5px; font-size: 14px;">See Appointment</a>
+        </p>
+      </div>
+      <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+        &copy; 2025 Esthetics by Noemi. All Rights Reserved.
+      </div>
+    </div>
+  `
+
+  // Admin Email Options
+  const customerEmailOptions = {
+    from: 'estheticsbynoemi@gmail.com',
+    to: updatedOrder.email,
+    subject: 'Your Order is Accepted',
+    html: emailHtml
+  }
+
+  try {
+    // Send email to admin
+    await transporter.sendMail(customerEmailOptions)
+
+  } catch (error) {
+    console.error('Error sending email:', error)
+  }
+}
+
+
+
+
 
 export const getOrders = async (req, res) => {
   try {
@@ -192,6 +258,7 @@ export const updateOrder = async (req, res) => {
     )
 
     res.status(200).json(updatedOrder)
+    await sendAcceptedEmail(updatedOrder)
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' })
   }
