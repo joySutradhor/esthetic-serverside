@@ -72,39 +72,7 @@ const sendBookingEmail = async orderDetails => {
     console.log('Booking email sent to admin.')
 
     // Send email to customer if email is provided
-    if (orderDetails.email) {
-      const customerMailOptions = {
-        from: 'estheticsbynoemi@gmail.com',
-        to: orderDetails.email,
-        subject: 'Booking Confirmation - Esthetics by Noemi',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-            <div style="background: #4B5563; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
-              Booking Confirmation
-            </div>
-            <div>
-              <p style="font-size: 14px;">Dear ${orderDetails.customerName},</p>
-              <p style="font-size: 14px;">Thank you for booking with us! Here are your appointment details:</p>
-              <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(
-                orderDetails.date
-              ).toLocaleDateString('en-US')}</p>
-              <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
-                orderDetails.time
-              }</p>
-              <p style="font-size: 14px;"><strong>Services:</strong></p>
-              ${servicesList}
-              <p style="margin-top: 20px;">We look forward to seeing you!</p>
-            </div>
-            <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
-              &copy; 2025 Esthetics by Noemi. All Rights Reserved.
-            </div>
-          </div>
-        `
-      }
-
-      await transporter.sendMail(customerMailOptions)
-      console.log('Booking confirmation email sent to customer.')
-    }
+   
   } catch (error) {
     console.error('Error sending email:', error)
   }
@@ -129,7 +97,7 @@ const sendAcceptedEmail = async updatedOrder => {
   const emailHtml = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
       <div style="background: #008000; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
-        Now Your Order Is Accepted 
+        Your Appointment has been accepted
       </div>
       <div>
         <p style="font-size: 14px;"><strong>Name:</strong> ${
@@ -161,7 +129,7 @@ const sendAcceptedEmail = async updatedOrder => {
   const customerEmailOptions = {
     from: 'estheticsbynoemi@gmail.com',
     to: updatedOrder.email,
-    subject: 'Your Order is Accepted',
+    subject: 'Your Appointment has been accepted',
     html: emailHtml
   }
 
@@ -202,6 +170,21 @@ export const getAcceptedOrder = async (req, res) => {
       return res.status(404).json({ message: 'user not found' })
     }
     res.status(200).json(getAllAcceptOrders)
+  } catch (error) {
+    res.status(500).json({ error: 'Orders not found or empty' })
+  }
+}
+
+// get accepted order list
+export const getCancelOrder = async (req, res) => {
+  try {
+    const getAllCancelOrders = await orderModel
+      .find({ status: 'cancel' })
+      .sort({ createdAt: -1 })
+    if (getAllCancelOrders.length === 0) {
+      return res.status(404).json({ message: 'user not found' })
+    }
+    res.status(200).json(getAllCancelOrders)
   } catch (error) {
     res.status(500).json({ error: 'Orders not found or empty' })
   }
@@ -259,6 +242,31 @@ export const updateOrder = async (req, res) => {
 
     await sendAcceptedEmail(updatedOrder)
     res.status(200).json(updatedOrder)
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+}
+
+// order cancel 
+export const cancelOrder = async (req, res) => {
+  try {
+    const { id } = req.params
+    console.log(id)
+
+    // Check if the order exists
+    const isOrderExists = await orderModel.findById(id)
+    if (!isOrderExists) {
+      return res.status(404).json({ message: 'Order not found' })
+    }
+
+    // Update only the status field to "accepted"
+    const updatedCancelOrder = await orderModel.findByIdAndUpdate(
+      id,
+      { status: 'cancel' },
+      { new: true } // Returns the updated document
+    )
+
+    res.status(200).json(updatedCancelOrder)
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' })
   }
