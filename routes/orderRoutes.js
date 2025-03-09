@@ -1,6 +1,6 @@
 import express from  "express"
 
-import { fetch , create , getOrders , updateOrder , deleteOrder , multipleOrders , getAcceptedOrder} from "../controller/oderController.js"
+import { fetch , create , getOrders , updateOrder , deleteOrder , multipleOrders , getAcceptedOrder, getCancelOrder} from "../controller/oderController.js"
 
 const route = express.Router();
 
