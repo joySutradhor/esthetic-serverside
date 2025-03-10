@@ -142,6 +142,93 @@ const sendAcceptedEmail = async updatedOrder => {
   }
 }
 
+// fucntion to senc cancele bookings
+const sendCancelEmail = async orderDetails => {
+  // Format selected services into a list
+  const servicesList = orderDetails.selectedServices?.length
+    ? `<ul style="padding-left: 20px; color: #555;">
+        ${orderDetails.selectedServices
+          .map(service => `<li>${service?.serviceName}</li>`)
+          .join('')}
+      </ul>`
+    : "<p style='color: red;'>No services selected</p>";
+
+  // Email content for Admin
+  const emailHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+      <div style="background: #B91C1C; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+        Appointment Canceled
+      </div>
+      <div>
+        <p style="font-size: 14px;"><strong>Name:</strong> ${orderDetails.customerName}</p>
+        <p style="font-size: 14px;"><strong>Phone:</strong> ${orderDetails.phone}</p>
+        <p style="font-size: 14px;"><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
+        <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${orderDetails.time || 'N/A'}</p>
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
+        <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
+        ${servicesList}
+        <p style="margin-top: 20px;">
+          <a href="https://estheticsbynoemi.com/adminDashboard" style="background-color: #B91C1C; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-size: 14px;">Manage Appointments</a>
+        </p>
+      </div>
+      <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+        &copy; 2025 Esthetics by Noemi. All Rights Reserved.
+      </div>
+    </div>
+  `;
+
+  // Admin Email Options
+  const adminMailOptions = {
+    from: 'estheticsbynoemi@gmail.com',
+    to: 'estheticsbynoemi@gmail.com',
+    subject: 'Appointment Canceled',
+    html: emailHtml
+  };
+
+  try {
+    // Send email to admin
+    await transporter.sendMail(adminMailOptions);
+    console.log('Cancellation email sent to admin.');
+
+    if (orderDetails.email) {
+      const customerMailOptions = {
+        from: 'estheticsbynoemi@gmail.com',
+        to: orderDetails.email,
+        subject: 'Your Appointment Has Been Canceled',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+            <div style="background: #B91C1C; color: white; padding: 10px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 8px 8px 0 0;">
+              Appointment Canceled
+            </div>
+            <div>
+              <p style="font-size: 14px;">Dear ${orderDetails.customerName},</p>
+              <p style="font-size: 14px;">We regret to inform you that your appointment scheduled for <strong>${new Date(
+                orderDetails.date
+              ).toLocaleDateString('en-US')}</strong> at <strong>${orderDetails.time}</strong> has been <span style="color: red;">canceled</span>.</p>
+              <p style="font-size: 14px;">If this was a mistake or you’d like to reschedule, please contact us at <a href="mailto:estheticsbynoemi@gmail.com">estheticsbynoemi@gmail.com</a>.</p>
+              <p style="font-size: 14px;"><strong>Selected Services:</strong></p>
+              ${servicesList}
+              <p style="margin-top: 20px;">
+                <a href="https://estheticsbynoemi.com/book" style="background-color: #2563EB; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-size: 14px;">Reschedule Appointment</a>
+              </p>
+            </div>
+            <div style="background: #f4f4f4; margin-top: 30px; padding: 10px 5px; text-align: center; font-size: 12px; color: #777; border-radius: 0 0 8px 8px;">
+              &copy; 2025 Esthetics by Noemi. All Rights Reserved.
+            </div>
+          </div>
+        `
+      };
+
+      await transporter.sendMail(customerMailOptions);
+      console.log('Cancellation confirmation email sent to customer.');
+    }
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+};
+
+
+
 
 
 
@@ -265,7 +352,7 @@ export const cancelOrder = async (req, res) => {
       { status: 'cancel' },
       { new: true } // Returns the updated document
     )
-
+    await sendCancelEmail(updatedCancelOrder)
     res.status(200).json(updatedCancelOrder)
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' })
