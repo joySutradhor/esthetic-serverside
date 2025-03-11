@@ -205,7 +205,7 @@ const sendCancelEmail = async orderDetails => {
               <p style="font-size: 14px;">We regret to inform you that your appointment scheduled for <strong>${new Date(
                 orderDetails.date
               ).toLocaleDateString('en-US')}</strong> at <strong>${orderDetails.time}</strong> has been <span style="color: red;">canceled</span>.</p>
-              <p style="font-size: 14px;">If this was a mistake or you’d like to reschedule, please contact us at <a href="mailto:estheticsbynoemi@gmail.com">estheticsbynoemi@gmail.com</a>.</p>
+              <p style="font-size: 14px;">If this was a mistake or you’d like to reschedule, please contact us at <a href="mailto:info.estheticsbynoemi@gmail.com">info.estheticsbynoemi@gmail.com</a>.</p>
               <p style="font-size: 14px;"><strong>Selected Services:</strong></p>
               ${servicesList}
               <p style="margin-top: 20px;">
