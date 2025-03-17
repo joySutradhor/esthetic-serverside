@@ -61,7 +61,7 @@ const sendBookingEmail = async orderDetails => {
   // Admin Email Options
   const adminMailOptions = {
     from: 'estheticsbynoemi@gmail.com',
-    to: 'estheticsbynoemi@gmail.com',
+    to: 'info.estheticsbynoemi@gmail.com',
     subject: 'New Order Received',
     html: emailHtml
   }
