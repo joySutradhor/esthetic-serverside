@@ -180,7 +180,7 @@ const sendCancelEmail = async orderDetails => {
   // Admin Email Options
   const adminMailOptions = {
     from: 'estheticsbynoemi@gmail.com',
-    to: 'estheticsbynoemi@gmail.com',
+    to: 'info.estheticsbynoemi@gmail.com',
     subject: 'Appointment Canceled',
     html: emailHtml
   };
