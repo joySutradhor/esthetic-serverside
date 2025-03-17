@@ -192,7 +192,7 @@ const sendCancelEmail = async orderDetails => {
 
     if (orderDetails.email) {
       const customerMailOptions = {
-        from: 'estheticsbynoemi@gmail.com',
+        from: 'info.estheticsbynoemi@gmail.com',
         to: orderDetails.email,
         subject: 'Your Appointment Has Been Canceled',
         html: `
