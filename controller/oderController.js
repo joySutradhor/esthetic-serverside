@@ -178,7 +178,7 @@ const sendCancelEmail = async orderDetails => {
   `;
 
   // Admin Email Options
-  const adminMailOptions = {
+  const adminCancelMailOptions = {
     from: 'estheticsbynoemi@gmail.com',
     to: 'info.estheticsbynoemi@gmail.com',
     subject: 'Appointment Canceled',
@@ -187,7 +187,7 @@ const sendCancelEmail = async orderDetails => {
 
   try {
     // Send email to admin
-    await transporter.sendMail(adminMailOptions);
+    await transporter.sendMail(adminCancelMailOptions);
     console.log('Cancellation email sent to admin.');
 
     if (orderDetails.email) {
