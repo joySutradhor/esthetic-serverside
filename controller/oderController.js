@@ -42,10 +42,10 @@ const sendBookingEmail = async orderDetails => {
         <p style="font-size: 14px;"><strong>Email:</strong> ${
           orderDetails.email || 'N/A'
         }</p>
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
         <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
           orderDetails.time || 'N/A'
         }</p>
-        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
         <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
@@ -109,10 +109,10 @@ const sendAcceptedEmail = async updatedOrder => {
         <p style="font-size: 14px;"><strong>Email:</strong> ${
           updatedOrder.email || 'N/A'
         }</p>
+        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(updatedOrder.date).toLocaleDateString('en-US')}</p>
         <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${
           updatedOrder.time || 'N/A'
         }</p>
-        <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(updatedOrder.date).toLocaleDateString('en-US')}</p>
         <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
@@ -138,11 +138,13 @@ const sendAcceptedEmail = async updatedOrder => {
     await transporter.sendMail(customerEmailOptions)
 
   } catch (error) {
-    console.error('Error sending email:', error)
+    console.error('Error sending email here:', error)
+    console.log("error")
   }
 }
 
 // fucntion to senc cancele bookings
+// cancel code here
 const sendCancelEmail = async orderDetails => {
   // Format selected services into a list
   const servicesList = orderDetails.selectedServices?.length
@@ -163,8 +165,8 @@ const sendCancelEmail = async orderDetails => {
         <p style="font-size: 14px;"><strong>Name:</strong> ${orderDetails.customerName}</p>
         <p style="font-size: 14px;"><strong>Phone:</strong> ${orderDetails.phone}</p>
         <p style="font-size: 14px;"><strong>Email:</strong> ${orderDetails.email || 'N/A'}</p>
-        <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${orderDetails.time || 'N/A'}</p>
         <p style="font-size: 14px;"><strong>Appointment Date:</strong> ${new Date(orderDetails.date).toLocaleDateString('en-US')}</p>
+        <p style="font-size: 14px;"><strong>Appointment Time:</strong> ${orderDetails.time || 'N/A'}</p>
         <p style="font-size: 14px; font-weight: bold;">Selected Services:</p>
         ${servicesList}
         <p style="margin-top: 20px;">
@@ -226,7 +228,6 @@ const sendCancelEmail = async orderDetails => {
     console.error('Error sending email:', error);
   }
 };
-
 
 
 
