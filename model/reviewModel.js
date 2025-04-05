@@ -18,4 +18,4 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-export default mongoose.model('AllOrders', reviewSchema)
+export default mongoose.model('AllReviews', reviewSchema)
