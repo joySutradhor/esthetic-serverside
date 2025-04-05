@@ -1,6 +1,7 @@
 import orderModel from '../model/orderModel.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+import reviewModel from '../model/reviewModel.js'
 
 dotenv.config()
 // Configure Nodemailer
@@ -305,6 +306,17 @@ export const create = async (req, res) => {
     await sendBookingEmail(saveOrder)
 
     res.status(200).json(saveOrder)
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error .' })
+  }
+}
+
+export const createReview = async (req, res) => {
+  try {
+    const reviewData = new reviewModel(req.body)
+
+    const saveReview = await reviewData.save()
+    res.status(200).json(saveReview)
   } catch (error) {
     res.status(500).json({ error: 'Internal server error .' })
   }
