@@ -235,6 +235,16 @@ const sendCancelEmail = async orderDetails => {
 
 
 
+export const allReviews = async (req, res) => {
+  try {
+    const getAllReviews = await reviewModel.find(); 
+    res.status(200).json(getAllReviews);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Reviews not found or empty' });
+  }
+};
+
 export const getOrders = async (req, res) => {
   try {
     const getAllOrders = await orderModel
