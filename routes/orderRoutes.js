@@ -1,6 +1,6 @@
 import express from  "express"
 
-import { fetch , create , getOrders , updateOrder , deleteOrder , multipleOrders , getAcceptedOrder, getCancelOrder, cancelOrder, createReview, allReviews} from "../controller/oderController.js"
+import { fetch , create , getOrders , updateOrder , deleteOrder , multipleOrders , getAcceptedOrder, getCancelOrder, cancelOrder, createReview, allReviews, deleteReview} from "../controller/oderController.js"
 
 const route = express.Router();
 
@@ -15,5 +15,6 @@ route.post("/review" , createReview)
 route.patch ("/update/:id" , updateOrder)
 route.patch ("/cancel/:id" , cancelOrder)
 route.delete ("/deleteOrder/:id" , deleteOrder)
+route.delete ("/deleteReview/:id" , deleteReview)
 
 export default route ;

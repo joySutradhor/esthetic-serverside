@@ -398,6 +398,22 @@ export const deleteOrder = async (req, res) => {
   }
 }
 
+export const deleteReview = async (req, res) => {
+  try {
+    const id = req.params.id
+    const checkOrder = await reviewModel.findOne({ _id: id })
+
+    if (!checkOrder) {
+      return res.status(404).json({ error: 'Order item not found' })
+    }
+
+    await reviewModel.findByIdAndDelete(id)
+    res.status(200).json({ message: 'Review delete successfully' })
+  } catch (error) {
+    res.json(500).json({ error: 'Internal server error' })
+  }
+}
+
 export const fetch = async (req, res) => {
   try {
     return res.json('Hello')
